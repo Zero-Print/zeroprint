@@ -1,10 +1,10 @@
-# 🌍 ZeroPrint Core
+# 🌍 ZeroPrint
 ### *The Future of Sustainability is Here*
 
 <div align="center">
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?style=for-the-badge)](https://github.com/zeroprint/core)
-[![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE)
+[![License](https://img.shields.io/badge/)](LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg?style=for-the-badge)](https://github.com/zeroprint/core/actions)
 [![Carbon Neutral](https://img.shields.io/badge/carbon-neutral-brightgreen.svg?style=for-the-badge)](https://zeroprint.ai/carbon-pledge)
 [![India First](https://img.shields.io/badge/made%20in-india-ff9933.svg?style=for-the-badge)](https://zeroprint.ai)
@@ -24,7 +24,7 @@
 
 > *Imagine if your daily eco-actions could save the planet AND reward you for it. Welcome to the future of sustainability.*
 
-ZeroPrint isn't just another app—it's India's first **AI-powered sustainability engagement platform** that transforms environmental responsibility into an addictive, rewarding experience. Think Fitbit meets climate action, powered by cutting-edge AI and blockchain rewards.
+ZeroPrint isn't just another web app—it's India's first **AI-powered sustainability engagement platform** that transforms environmental responsibility into an addictive, rewarding experience. Think Fitbit meets climate action, powered by cutting-edge AI and blockchain rewards.
 
 ### 🎯 **The Vision**
 - 🇮🇳 **India's Net Zero 2070** commitment made achievable through citizen engagement
@@ -147,7 +147,7 @@ graph TB
 | Frontend | Backend | Database | Cloud | AI/ML |
 |----------|---------|----------|-------|-------|
 | ![React](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) | ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) | ![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white) | ![AWS](https://img.shields.io/badge/Amazon_AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white) | ![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white) |
-| ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) | ![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge) | ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white) | ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white) | ![OpenAI](https://img.shields.io/badge/OpenAI-74aa9c?style=for-the-badge&logo=openai&logoColor=white) |
+| ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) | ![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge) | ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white) | ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white) | ![OpenAI](https://img.shields.io/badge/OpenAI-74aa9c?style=for-the-badge&logo=openai&logoColor=white) |
 
 </div>
 
@@ -165,7 +165,7 @@ graph TB
 
 ```bash
 # Clone the future of sustainability
-git clone https://github.com/zeroprint/core.git
+git clone [https://github.com/zeroprint/core.git](https://github.com/Zero-Print/zeroprint)
 cd zeroprint-core
 
 # Install dependencies
@@ -186,19 +186,16 @@ npm run dev
 npm run dev:full
 
 # Frontend only
-npm run dev:web
+npm run dev
 
 # Backend only  
-npm run dev:api
-
-# Mobile app
-npm run dev:mobile
+npm run start
 
 # Run tests
-npm run test:watch
+npm run test
 
 # Build for production
-npm run build:prod
+npm run build
 ```
 
 ---
@@ -321,11 +318,11 @@ We're building the future of sustainability, and we need brilliant minds like yo
 
 <div align="center">
 
-[![Website](https://img.shields.io/badge/website-zeroprint.ai-blue?style=for-the-badge&logo=google-chrome)](https://zeroprint.ai)
-[![Twitter](https://img.shields.io/badge/twitter-@ZeroPrintAI-1DA1F2?style=for-the-badge&logo=twitter)](https://twitter.com/ZeroPrintAI)
+[![Website](https://img.shields.io/badge/website-zeroprint.in-blue?style=for-the-badge&logo=google-chrome)](https://zeroprint.in)
+[![Twitter](https://img.shields.io/badge/twitter-@ZeroPrintIN-1DA1F2?style=for-the-badge&logo=twitter)](https://twitter.com/ZeroPrintIN)
 [![LinkedIn](https://img.shields.io/badge/linkedin-ZeroPrint-0077B5?style=for-the-badge&logo=linkedin)](https://linkedin.com/company/zeroprint)
 [![Discord](https://img.shields.io/badge/discord-ZeroPrint_Community-7289DA?style=for-the-badge&logo=discord)](https://discord.gg/zeroprint)
-[![Email](https://img.shields.io/badge/email-hello@zeroprint.ai-EA4335?style=for-the-badge&logo=gmail)](mailto:hello@zeroprint.ai)
+[![Email](https://img.shields.io/badge/email-hello@zeroprint.in-EA4335?style=for-the-badge&logo=gmail)](mailto:hello@zeroprint.in)
 
 **Join 50,000+ sustainability champions in our community!**
 
@@ -393,9 +390,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with 💚 in India for the World**
 
-*ZeroPrint Core - Where Technology Meets Sustainability*
+*ZeroPrint - Where Technology Meets Sustainability*
 
-[![Visitors](https://visitor-badge.laobi.icu/badge?page_id=zeroprint.core)](https://github.com/zeroprint/core)
+[![Visitors](https://visitor-badge.laobi.icu/badge?page_id=zeroprint.core)]([https://github.com/zeroprint/core](https://github.com/Zero-Print/zeroprint))
 [![GitHub stars](https://img.shields.io/github/stars/zeroprint/core?style=social)](https://github.com/zeroprint/core/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/zeroprint/core?style=social)](https://github.com/zeroprint/core/network/members)
 
