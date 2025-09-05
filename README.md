@@ -14,7 +14,7 @@
 **Revolutionizing sustainability through AI-powered gamification**  
 *Track • Engage • Reward • Transform*
 
-[🚀 Live Demo](https://demo.zeroprint.ai) • [📱 Download App](https://app.zeroprint.ai) • [📊 Dashboard](https://dashboard.zeroprint.ai) • [🎮 Play Games](https://games.zeroprint.ai)
+[🚀 Live Demo](https://demo.zeroprint.ai) • [📊 Dashboard](https://dashboard.zeroprint.ai) • [🎮 Play Games](https://games.zeroprint.ai)
 
 </div>
 
