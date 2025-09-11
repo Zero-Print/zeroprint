@@ -14,32 +14,45 @@ async function setupFirestoreWeek3() {
     const demoUserId = "demoUser123";
 
     // ---- Simulation Data ----
-    await db.collection("simulationData").doc("sim1").set({
-      userId: demoUserId,
-      inputs: {
-        energyUsage: 120,   // kWh
-        wasteGenerated: 3,  // kg
-      },
-      outputs: {
-        co2Saved: 12,       // kg
-        waterSaved: 25,     // liters
-      },
-      createdAt: new Date(),
-      createdBy: "system",
-    });
+    await db
+      .collection("simulationData")
+      .doc("sim1")
+      .set({
+        userId: demoUserId,
+        inputs: {
+          energyUsage: 120, // kWh
+          wasteGenerated: 3, // kg
+        },
+        outputs: {
+          co2Saved: 12, // kg
+          waterSaved: 25, // liters
+        },
+        createdAt: new Date(),
+        createdBy: "system",
+      });
 
-    await db.collection("simulationData").doc("sim2").set({
+    await db
+      .collection("simulationData")
+      .doc("sim2")
+      .set({
+        userId: demoUserId,
+        inputs: {
+          energyUsage: 80,
+          wasteGenerated: 1.5,
+        },
+        outputs: {
+          co2Saved: 8,
+          waterSaved: 15,
+        },
+        createdAt: new Date(),
+        createdBy: "system",
+      });
+
+    await db.collection("gameScores").doc("game1").set({
       userId: demoUserId,
-      inputs: {
-        energyUsage: 80,
-        wasteGenerated: 1.5,
-      },
-      outputs: {
-        co2Saved: 8,
-        waterSaved: 15,
-      },
+      gameType: "quiz",
+      score: 80,
       createdAt: new Date(),
-      createdBy: "system",
     });
 
     console.log("✅ Week 3 Firestore setup complete!");
@@ -47,6 +60,5 @@ async function setupFirestoreWeek3() {
     console.error("❌ Error setting up Firestore (Week 3):", err);
   }
 }
-
 
 setupFirestoreWeek3();
