@@ -1,0 +1,46 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if request.auth != null &&
+                         (request.auth.token.email == 'ktanishasaini@gmail.com' ||
+                          request.auth.token.email == 'poorvisahu975@gmail.com' ||
+                          request.auth.token.email == 'mardavjadaun113@gmail.com');
+    }
+     match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    match /wallets/{walletId} {
+      allow read, write: if request.auth != null && request.auth.uid == walletId;
+       match /transactions/{txId} {
+    allow read, write: if request.auth != null && request.auth.uid == walletId;
+  }
+    }
+
+    match /events/{eventId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    match /scores/{scoreId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.token.admin == true;
+    }
+
+    match /moodLogs/{logId} {
+      allow read: if true; 
+      allow write: if request.auth != null && request.auth.uid != null;
+    }
+
+    match /kindnessLogs/{logId} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid != null;
+    }
+  }
+}
