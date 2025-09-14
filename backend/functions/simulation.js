@@ -23,6 +23,38 @@ const RULE_ENGINE = {
 };
 
 /**
+ * Helper: Award HealCoins (same style as game_logic.js)
+ */
+async function awardHealCoins(userId, amount, reason) {
+  const walletRef = db.collection("wallets").doc(userId);
+
+  await db.runTransaction(async (t) => {
+    const walletDoc = await t.get(walletRef);
+    if (!walletDoc.exists) throw new Error("Wallet not found!");
+
+    const currentBalance = walletDoc.data().balance || 0;
+    const newBalance = currentBalance + amount;
+
+    t.update(walletRef, {
+      balance: newBalance,
+      lifetimeEarned: (walletDoc.data().lifetimeEarned || 0) + amount,
+      lastUpdated: new Date(),
+    });
+
+    // Transaction history
+    const txRef = walletRef.collection("transactions").doc();
+    t.set(txRef, {
+      type: "earn",
+      amount,
+      reason,
+      createdAt: new Date(),
+      createdBy: "system",
+      status: "posted",
+    });
+  });
+}
+
+/**
  * POST /api/simulation/digital-twin
  * Body: { userId, scenario, parameters }
  */
@@ -64,6 +96,11 @@ exports.runSimulation = functions.https.onRequest(async (req, res) => {
       createdAt: new Date(),
     });
 
+    //  Also award HealCoins into wallet if reward > 0
+    if (result.reward > 0) {
+      await awardHealCoins(userId, result.reward, `Simulation Reward: ${scenario}`);
+    }
+
     return res.json({
       success: true,
       scenario,
@@ -72,6 +109,7 @@ exports.runSimulation = functions.https.onRequest(async (req, res) => {
       healCoinsAwarded: result.reward,
     });
   } catch (err) {
+    console.error("❌ Simulation error:", err);
     return res.status(500).json({ error: err.message });
   }
 });
