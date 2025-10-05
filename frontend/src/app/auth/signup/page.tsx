@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useAuth } from '@/modules/auth';
+import { useAuth } from '@/hooks/useAuth';
 import { UserRole } from '@/types';
 import { 
   User, 
@@ -43,7 +43,7 @@ export default function EnhancedSignUpPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const { signUp, signInWithGoogle } = useAuth();
+  const { signup, signInWithGoogle } = useAuth();
   const router = useRouter();
 
   const roleOptions: RoleOption[] = [
@@ -115,25 +115,36 @@ export default function EnhancedSignUpPage() {
     setLoading(true);
 
     try {
-      await signUp(formData.email, formData.password, formData.displayName, formData.role);
+      const result = await signup({
+        email: formData.email,
+        password: formData.password,
+        userData: {
+          name: formData.displayName,
+          role: formData.role,
+        }
+      });
       
-      // Redirect to appropriate dashboard based on role
-      switch (formData.role) {
-        case 'citizen':
-          router.push('/dashboard/citizen');
-          break;
-        case 'school':
-        case 'msme':
-          router.push('/dashboard/entity');
-          break;
-        case 'govt':
-          router.push('/dashboard/govt');
-          break;
-        case 'admin':
-          router.push('/admin');
-          break;
-        default:
-          router.push('/dashboard/citizen');
+      if (result.success) {
+        // Redirect to appropriate dashboard based on role
+        switch (formData.role) {
+          case 'citizen':
+            router.push('/dashboard/citizen');
+            break;
+          case 'school':
+          case 'msme':
+            router.push('/dashboard/entity');
+            break;
+          case 'govt':
+            router.push('/dashboard/govt');
+            break;
+          case 'admin':
+            router.push('/admin');
+            break;
+          default:
+            router.push('/dashboard/citizen');
+        }
+      } else {
+        setError(result.error || 'Signup failed');
       }
     } catch (error: any) {
       setError(error.message || 'Failed to create account');

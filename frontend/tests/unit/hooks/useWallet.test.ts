@@ -63,7 +63,7 @@ const mockWalletService = {
   getWalletLimits: jest.fn(),
 };
 
-jest.mock('../../../src/services/walletService', () => ({
+jest.mock('../../../src/modules/wallet/walletService', () => ({
   WalletService: jest.fn(() => mockWalletService),
 }));
 

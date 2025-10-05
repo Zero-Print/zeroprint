@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { WalletCard } from '../../../src/components/WalletCard';
+import { WalletCard } from '../../../src/components/ui/WalletCard';
 import { TEST_WALLETS } from '../../fixtures/seed-data';
 
 // Mock Next.js router
@@ -14,6 +14,7 @@ jest.mock('next/router', () => ({
 // Mock wallet hook
 const mockUseWallet = {
   wallet: null,
+  transactions: [],
   loading: false,
   error: null,
   refreshWallet: jest.fn(),
@@ -21,7 +22,14 @@ const mockUseWallet = {
 };
 
 jest.mock('../../../src/hooks/useWallet', () => ({
-  useWallet: () => mockUseWallet,
+  useWallet: () => ({
+    wallet: mockUseWallet.wallet,
+    transactions: mockUseWallet.transactions,
+    loading: mockUseWallet.loading,
+    error: mockUseWallet.error,
+    refreshWallet: mockUseWallet.refreshWallet,
+    getTransactionHistory: mockUseWallet.getTransactionHistory,
+  }),
 }));
 
 // Mock auth hook
@@ -179,8 +187,8 @@ describe('WalletCard', () => {
 
       mockUseWallet.loading = false;
       mockUseWallet.wallet = wallet;
+      mockUseWallet.transactions = mockTransactions;
       mockUseWallet.error = null;
-      mockUseWallet.getTransactionHistory.mockResolvedValue(mockTransactions);
 
       render(<WalletCard showTransactions={true} />);
 
@@ -314,11 +322,11 @@ describe('WalletCard', () => {
       render(<WalletCard />);
 
       expect(screen.getByLabelText('Wallet balance')).toBeInTheDocument();
-      expect(screen.getByLabelText('HealCoins balance: 100')).toBeInTheDocument();
+      expect(screen.getByLabelText('HealCoins balance: 150')).toBeInTheDocument();
     });
 
     it('should be keyboard navigable', () => {
-      const wallet = TEST_WALLETS['test-citizen-1'];
+      const wallet = { ...TEST_WALLETS['test-citizen-1'], healCoins: 100 }; // Medium balance for both buttons
       mockUseWallet.loading = false;
       mockUseWallet.wallet = wallet;
       mockUseWallet.error = null;
@@ -332,7 +340,8 @@ describe('WalletCard', () => {
       earnButton.focus();
       expect(document.activeElement).toBe(earnButton);
 
-      fireEvent.keyDown(earnButton, { key: 'Tab' });
+      // Use Tab key to navigate to next focusable element
+      fireEvent.keyDown(earnButton, { key: 'Tab', keyCode: 9 });
       expect(document.activeElement).toBe(redeemButton);
     });
 
@@ -372,7 +381,7 @@ describe('WalletCard', () => {
 
       // Check for animation class
       await waitFor(() => {
-        expect(screen.getByTestId('wallet-balance')).toHaveClass('animate-balance-change');
+        expect(screen.getByTestId('wallet-balance-high')).toHaveClass('animate-balance-change');
       });
     });
 

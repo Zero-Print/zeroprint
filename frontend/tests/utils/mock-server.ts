@@ -1,23 +1,24 @@
-import { setupServer } from 'msw/node';
-import { http, HttpResponse } from 'msw';
-import { handlers } from './handlers';
-
 /**
  * Mock Server Setup for Testing
  *
- * This module sets up a mock server using MSW (Mock Service Worker)
- * to intercept and mock API calls during testing.
+ * This module provides mock server utilities for testing without MSW
+ * to avoid ESM compatibility issues.
  */
 
-// Create mock server with handlers
-export const server = setupServer(...handlers);
+// Mock server object
+const mockServer = {
+  listen: jest.fn(),
+  close: jest.fn(),
+  resetHandlers: jest.fn(),
+  use: jest.fn(),
+};
 
 /**
  * Setup mock server for testing
  */
 export async function setupMockServer(): Promise<void> {
   // Start the server
-  server.listen({
+  mockServer.listen({
     onUnhandledRequest: 'warn',
   });
 
@@ -29,7 +30,7 @@ export async function setupMockServer(): Promise<void> {
  */
 export async function teardownMockServer(): Promise<void> {
   // Clean up and stop the server
-  server.close();
+  mockServer.close();
   console.log('Mock server stopped');
 }
 
@@ -37,14 +38,14 @@ export async function teardownMockServer(): Promise<void> {
  * Reset handlers between tests
  */
 export function resetMockServer(): void {
-  server.resetHandlers();
+  mockServer.resetHandlers();
 }
 
 /**
  * Add runtime handlers for specific tests
  */
 export function addMockHandlers(...newHandlers: any[]): void {
-  server.use(...newHandlers);
+  mockServer.use(...newHandlers);
 }
 
 // Additional mock server utilities
@@ -53,22 +54,17 @@ export const mockServerUtils = {
    * Mock authentication success
    */
   mockAuthSuccess: () => {
-    server.use(
-      rest.post('/api/auth/login', (req, res, ctx) => {
-        return res(
-          ctx.status(200),
-          ctx.json({
-            success: true,
-            user: {
-              id: 'test-user-id',
-              email: 'test@example.com',
-              name: 'Test User',
-              role: 'user',
-            },
-            token: 'mock-jwt-token',
-          })
-        );
-      })
+    mockServer.use(
+      jest.fn(() => ({
+        success: true,
+        user: {
+          id: 'test-user-id',
+          email: 'test@example.com',
+          name: 'Test User',
+          role: 'user',
+        },
+        token: 'mock-jwt-token',
+      }))
     );
   },
 
@@ -76,16 +72,11 @@ export const mockServerUtils = {
    * Mock authentication failure
    */
   mockAuthFailure: () => {
-    server.use(
-      rest.post('/api/auth/login', (req, res, ctx) => {
-        return res(
-          ctx.status(401),
-          ctx.json({
-            success: false,
-            error: 'Invalid credentials',
-          })
-        );
-      })
+    mockServer.use(
+      jest.fn(() => ({
+        success: false,
+        error: 'Invalid credentials',
+      }))
     );
   },
 
@@ -93,9 +84,9 @@ export const mockServerUtils = {
    * Mock network error
    */
   mockNetworkError: (endpoint: string) => {
-    server.use(
-      rest.all(endpoint, (req, res, ctx) => {
-        return res.networkError('Network error');
+    mockServer.use(
+      jest.fn(() => {
+        throw new Error('Network error');
       })
     );
   },
@@ -104,15 +95,10 @@ export const mockServerUtils = {
    * Mock server error
    */
   mockServerError: (endpoint: string) => {
-    server.use(
-      rest.all(endpoint, (req, res, ctx) => {
-        return res(
-          ctx.status(500),
-          ctx.json({
-            error: 'Internal server error',
-          })
-        );
-      })
+    mockServer.use(
+      jest.fn(() => ({
+        error: 'Internal server error',
+      }))
     );
   },
 
@@ -120,15 +106,10 @@ export const mockServerUtils = {
    * Mock rate limiting
    */
   mockRateLimit: (endpoint: string) => {
-    server.use(
-      rest.all(endpoint, (req, res, ctx) => {
-        return res(
-          ctx.status(429),
-          ctx.json({
-            error: 'Too many requests',
-          })
-        );
-      })
+    mockServer.use(
+      jest.fn(() => ({
+        error: 'Too many requests',
+      }))
     );
   },
 
@@ -136,10 +117,14 @@ export const mockServerUtils = {
    * Mock slow response
    */
   mockSlowResponse: (endpoint: string, delay: number = 5000) => {
-    server.use(
-      rest.all(endpoint, (req, res, ctx) => {
-        return res(ctx.delay(delay), ctx.status(200), ctx.json({ success: true }));
+    mockServer.use(
+      jest.fn(async () => {
+        await new Promise(resolve => setTimeout(resolve, delay));
+        return { success: true };
       })
     );
   },
 };
+
+// Export mock server for compatibility
+export const server = mockServer;

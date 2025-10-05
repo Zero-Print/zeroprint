@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '@/modules/auth';
+import { useAuth } from '@/hooks/useAuth';
 import { GovernmentDashboard } from '@/components/layouts';
 import { redirect } from 'next/navigation';
 import { fetchDashboardData } from '@/lib/services/dashboardClient';

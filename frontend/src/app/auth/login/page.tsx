@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ZPButton } from '@/components/ui/ZPButton';
 import { ZPInput } from '@/components/ui/ZPInput';
 import { ZPCheckbox } from '@/components/ui/ZPCheckbox';
-import { useAuth } from '@/modules/auth';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function LoginPage() {
   const { signIn, signInWithGoogle, loading } = useAuth();

@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { httpsCallable } from 'firebase/functions';
-import { functions } from '@/lib/firebase';
+import api from '@/lib/apiClient';
 import { ZPCard } from '@/components/ZPCard';
 import { ZPButton } from '@/components/ZPButton';
 
@@ -12,18 +11,25 @@ export default function AdminSpotlightPage() {
 
   const fetchStories = async () => {
     setLoading(true);
-    const fn = (httpsCallable as any)(functions, 'listSpotlightStories');
-    const res: any = await fn({ status: 'pending' });
-    setStories(res.data?.data || []);
+    try {
+      const res = await api.get('/admin/spotlight/stories', { params: { status: 'pending' } });
+      setStories(res.data?.data || []);
+    } catch (error) {
+      console.error('Failed to fetch stories:', error);
+      setStories([]);
+    }
     setLoading(false);
   };
 
   useEffect(() => { fetchStories(); }, []);
 
   const handleReview = async (storyId: string, action: 'approve' | 'reject') => {
-    const fn = (httpsCallable as any)(functions, 'reviewSpotlightStory');
-    await fn({ storyId, action });
-    fetchStories();
+    try {
+      await api.post('/admin/spotlight/review', { storyId, action });
+      fetchStories();
+    } catch (error) {
+      console.error('Failed to review story:', error);
+    }
   };
 
   return (

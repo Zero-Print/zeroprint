@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useAuth } from '@/modules/auth';
+import { useAuth } from '@/hooks/useAuth';
 import { redirect } from 'next/navigation';
 import EntityDashboard from '@/components/layouts/EntityDashboard';
 

@@ -4,8 +4,8 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import { User, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
+import { User, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, signInWithPopup } from 'firebase/auth';
+import { auth, googleAuthProvider } from '@/lib/firebase';
 import api from '@/lib/apiClient';
 import { ApiError } from '@/lib/apiClient';
 
@@ -152,6 +152,42 @@ export function useAuth() {
     }
   }, []);
 
+  // Sign in (alias for login)
+  const signIn = useCallback(async (data: LoginData) => {
+    return login(data);
+  }, [login]);
+
+  // Sign in with Google
+  const signInWithGoogle = useCallback(async () => {
+    try {
+      setState(prev => ({ ...prev, loading: true, error: null }));
+
+      if (!googleAuthProvider) {
+        throw new Error('Google Auth Provider not available');
+      }
+
+      // Sign in with Google
+      const result = await signInWithPopup(auth, googleAuthProvider);
+      
+      // Call backend API to create/update user profile
+      const response = await api.auth.login({
+        email: result.user.email || '',
+        password: '', // Not needed for Google auth
+      });
+
+      if (!response.success) {
+        console.warn('Backend login failed, but Firebase auth succeeded:', response.error);
+      }
+
+      setState(prev => ({ ...prev, loading: false, error: null }));
+      return { success: true, user: result.user };
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Google sign-in failed';
+      setState(prev => ({ ...prev, loading: false, error: errorMessage }));
+      return { success: false, error: errorMessage };
+    }
+  }, []);
+
   // Sign out
   const logout = useCallback(async () => {
     try {
@@ -233,6 +269,8 @@ export function useAuth() {
     // Actions
     signup,
     login,
+    signIn, // Alias for login
+    signInWithGoogle,
     logout,
     updateProfile,
     getIdToken,

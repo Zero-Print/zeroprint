@@ -4,9 +4,18 @@
 /node_modules
 /.pnp
 .pnp.js
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 
 # testing
 /coverage
+/test-results/
+/playwright-report/
+/playwright/.cache/
 
 # next.js
 /.next/
@@ -23,10 +32,28 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
 
-# local env files
-.env*.local
+# Environment variables and secrets
 .env
+.env.*
+!.env.example
+env.example
+*.env
+!*.env.example
+
+# Service account keys and certificates
+serviceAccountKey.json
+*serviceAccount*.json
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# Local development files
+*.local
+local-*
 
 # vercel
 .vercel
@@ -34,3 +61,152 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Firebase
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+database-debug.log
+.firebase/
+firebase.json
+firestore.rules
+firestore.indexes.json
+database.rules.json
+storage.rules
+serviceAccountKey.json
+
+# Test files (development only)
+test-*.html
+*-test.html
+test-firebase*.html
+test-auth*.html
+test-dashboard*.html
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Local development files
+*.local
+local-*
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Test sprite files
+testsprite_tests/
+
+# Compiled JavaScript files (import files)
+*.js
+*.js.map
+!jest.config.js
+!next.config.js
+!postcss.config.mjs
+!eslint.config.mjs
+!middleware.ts
+!tailwind.config.js
+!playwright.config.ts
+!playwright-visual.config.ts
+!jest.setup.js
+!jest.unit.config.js
+
+# TypeScript declaration files (generated)
+*.d.ts
+!types/*.d.ts
+
+# Build outputs and compiled files
+backend/functions/lib/**/*.js
+backend/functions/lib/**/*.js.map
+backend/functions/lib/**/*.d.ts
+frontend/dist/
+frontend/.next/
+frontend/out/
+
+# Node.js compiled files
+*.node
+*.o
+*.so
+*.dylib
+
+# Compiled binary addons
+build/Release/

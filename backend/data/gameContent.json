@@ -1,0 +1,83 @@
+{
+  "quizQuestions": [
+    {
+      "id": "solar-q1",
+      "text": "What percentage of sunlight do solar panels convert to electricity?",
+      "type": "single",
+      "options": [{"id": "a", "text": "15-20%"}, {"id": "b", "text": "30-35%"}],
+      "correctAnswer": "a",
+      "points": 10,
+      "category": "solar"
+    },
+    {
+      "id": "solar-q2",
+      "text": "Which type of solar panel is most efficient?",
+      "type": "single",
+      "options": [{"id": "a", "text": "Monocrystalline"}, {"id": "b", "text": "Polycrystalline"}, {"id": "c", "text": "Thin-film"}],
+      "correctAnswer": "a",
+      "points": 10,
+      "category": "solar"
+    },
+    {
+      "id": "wind-q1",
+      "text": "What is the minimum wind speed typically needed for a wind turbine to generate electricity?",
+      "type": "single",
+      "options": [{"id": "a", "text": "5-10 mph"}, {"id": "b", "text": "15-20 mph"}, {"id": "c", "text": "25-30 mph"}],
+      "correctAnswer": "a",
+      "points": 10,
+      "category": "wind"
+    },
+    {
+      "id": "carbon-q1",
+      "text": "Which of the following activities has the highest carbon footprint?",
+      "type": "single",
+      "options": [
+        {"id": "a", "text": "Taking a long shower"},
+        {"id": "b", "text": "Flying internationally"},
+        {"id": "c", "text": "Using plastic bags"},
+        {"id": "d", "text": "Leaving lights on"}
+      ],
+      "correctAnswer": "b",
+      "points": 10,
+      "category": "carbon"
+    },
+    {
+      "id": "carbon-q2",
+      "text": "What is the main greenhouse gas contributing to climate change?",
+      "type": "single",
+      "options": [
+        {"id": "a", "text": "Carbon dioxide"},
+        {"id": "b", "text": "Methane"},
+        {"id": "c", "text": "Water vapor"},
+        {"id": "d", "text": "Ozone"}
+      ],
+      "correctAnswer": "a",
+      "points": 10,
+      "category": "carbon"
+    }
+  ],
+  "wasteItems": [
+    {"id": "plastic-bottle", "name": "Plastic Bottle", "category": "recycling", "points": 5},
+    {"id": "banana-peel", "name": "Banana Peel", "category": "compost", "points": 3},
+    {"id": "glass-jar", "name": "Glass Jar", "category": "recycling", "points": 5},
+    {"id": "newspaper", "name": "Newspaper", "category": "recycling", "points": 3},
+    {"id": "apple-core", "name": "Apple Core", "category": "compost", "points": 3},
+    {"id": "plastic-bag", "name": "Plastic Bag", "category": "landfill", "points": 1},
+    {"id": "aluminum-can", "name": "Aluminum Can", "category": "recycling", "points": 5},
+    {"id": "styrofoam-cup", "name": "Styrofoam Cup", "category": "landfill", "points": 1},
+    {"id": "cardboard-box", "name": "Cardboard Box", "category": "recycling", "points": 4},
+    {"id": "coffee-grounds", "name": "Coffee Grounds", "category": "compost", "points": 3}
+  ],
+  "simulationFormulas": [
+    {"id": "co2-per-km", "expression": "distance * 0.21", "unit": "kg CO2"},
+    {"id": "solar-output", "expression": "panelArea * sunlightIntensity * 0.15", "unit": "kWh"},
+    {"id": "wind-output", "expression": "0.5 * airDensity * Math.pow(windSpeed, 3) * sweptArea * efficiency", "unit": "kWh"},
+    {"id": "water-savings", "expression": "standardUsage - efficientUsage", "unit": "liters"},
+    {"id": "tree-co2-absorption", "expression": "treeCount * 21", "unit": "kg CO2 per year"},
+    {"id": "home-energy", "expression": "baseload + (heatingDays * heatingFactor) + (coolingDays * coolingFactor)", "unit": "kWh"},
+    {"id": "ev-vs-ice", "expression": "iceEmissions - evEmissions", "unit": "kg CO2 saved"},
+    {"id": "compost-reduction", "expression": "organicWaste * 0.5", "unit": "kg CO2 equivalent"},
+    {"id": "recycling-savings", "expression": "paperWeight * 0.9 + plasticWeight * 1.5 + metalWeight * 4.0", "unit": "kg CO2 equivalent"},
+    {"id": "public-transport-savings", "expression": "carDistance * 0.21 - publicDistance * 0.04", "unit": "kg CO2 saved"}
+  ]
+}

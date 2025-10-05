@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { httpsCallable } from 'firebase/functions';
-import { functions } from '@/lib/firebase';
+import api from '@/lib/apiClient';
 import { ZPCard } from '@/components/ZPCard';
 import { t } from '@/lib/i18n';
 
@@ -12,9 +11,13 @@ export default function CitizenSpotlightPage() {
 
   const fetchStories = async () => {
     setLoading(true);
-    const fn = (httpsCallable as any)(functions, 'listSpotlightStories');
-    const res: any = await fn({ status: 'approved' });
-    setStories(res.data?.data || []);
+    try {
+      const res = await api.get('/citizen/spotlight/stories', { params: { status: 'approved' } });
+      setStories(res.data?.data || []);
+    } catch (error) {
+      console.error('Failed to fetch stories:', error);
+      setStories([]);
+    }
     setLoading(false);
   };
 

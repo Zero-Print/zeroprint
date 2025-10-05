@@ -3,8 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { ZPCard } from '@/components/ZPCard';
 import { ZPButton } from '@/components/ZPButton';
-import { httpsCallable, getFunctions } from 'firebase/functions';
-import api from '@/lib/api';
+import api from '@/lib/apiClient';
 
 export default function NotificationLogsPage() {
   const [logs, setLogs] = useState<any[]>([]);
@@ -20,10 +19,19 @@ export default function NotificationLogsPage() {
   }, [userId, status]);
 
   const manualDispatch = async () => {
-    const functions = getFunctions();
-    const fn: any = httpsCallable(functions, 'sendNotification');
-    await fn({ userId: userId || 'demo_user', channel: 'email', templateId: 'reward_redeemed', variables: { name: 'Demo', rewardTitle: 'Water Bottle', voucherCode: 'ABC-123' }, to: { email: 'demo@example.com' } });
-    alert('Dispatched (demo)');
+    try {
+      await api.post('/admin/integrations/notifications/send', {
+        userId: userId || 'demo_user',
+        channel: 'email',
+        templateId: 'reward_redeemed',
+        variables: { name: 'Demo', rewardTitle: 'Water Bottle', voucherCode: 'ABC-123' },
+        to: { email: 'demo@example.com' }
+      });
+      alert('Dispatched (demo)');
+    } catch (error) {
+      console.error('Failed to send notification:', error);
+      alert('Failed to send notification');
+    }
   };
 
   return (

@@ -1,17 +1,15 @@
 'use client';
 
-import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getAuth, connectAuthEmulator, GoogleAuthProvider } from 'firebase/auth';
-import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
-import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
-import { getStorage, connectStorageEmulator } from 'firebase/storage';
+import { initializeApp, getApps, getApp, FirebaseApp } from 'firebase/app';
+import { getAuth, connectAuthEmulator, GoogleAuthProvider, Auth } from 'firebase/auth';
+import { getFirestore, connectFirestoreEmulator, Firestore } from 'firebase/firestore';
+import { getFunctions, connectFunctionsEmulator, Functions } from 'firebase/functions';
+import { getStorage, connectStorageEmulator, FirebaseStorage } from 'firebase/storage';
 
-const useEmulators = process.env.NEXT_PUBLIC_FIREBASE_USE_EMULATORS === 'true';
-// Avoid implicit emulator to prevent 9099 errors; only use when explicitly enabled
-const effectiveUseEmulators = useEmulators;
 const isClient = typeof window !== 'undefined';
+const useEmulators = process.env.NEXT_PUBLIC_FIREBASE_USE_EMULATORS === 'true';
 
-// Base Firebase configuration from environment variables
+// Firebase configuration from environment variables
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -23,16 +21,19 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Debug logging for Firebase config
-if (isClient) {
-  console.log('🔧 Firebase Config Debug:', {
-    useEmulators,
-    effectiveUseEmulators,
-    env_use_emulators: process.env.NEXT_PUBLIC_FIREBASE_USE_EMULATORS,
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  });
-}
+// Validate Firebase configuration
+const validateFirebaseConfig = () => {
+  const requiredKeys = ['apiKey', 'authDomain', 'projectId', 'storageBucket', 'messagingSenderId', 'appId'];
+  const missing = requiredKeys.filter(key => !firebaseConfig[key as keyof typeof firebaseConfig]);
+  
+  if (missing.length > 0) {
+    console.error(`Missing Firebase config values: ${missing.join(', ')}`);
+    return false;
+  }
+  return true;
+};
 
+// Get Firebase configuration with fallbacks
 const getFirebaseConfig = () => {
   if (useEmulators) {
     return {
@@ -47,14 +48,8 @@ const getFirebaseConfig = () => {
     };
   }
 
-  // Check for required config values (databaseURL is optional)
-  const requiredKeys = ['apiKey', 'authDomain', 'projectId', 'storageBucket', 'messagingSenderId', 'appId'];
-  const missing = requiredKeys.filter(key => !firebaseConfig[key as keyof typeof firebaseConfig]);
-
-  if (missing.length > 0) {
-    console.warn(`Missing Firebase config values: ${missing.join(', ')}`);
-    console.warn('Falling back to emulator mode...');
-    // Fall back to emulator configuration
+  if (!validateFirebaseConfig()) {
+    console.warn('Invalid Firebase config, falling back to emulator mode');
     return {
       apiKey: 'demo-api-key',
       authDomain: 'demo.firebaseapp.com',
@@ -70,128 +65,181 @@ const getFirebaseConfig = () => {
   return firebaseConfig;
 };
 
-let app: ReturnType<typeof initializeApp> | null = null;
-export const getFirebaseApp = () => {
+// Initialize Firebase app
+let app: FirebaseApp | null = null;
+export const getFirebaseApp = (): FirebaseApp | null => {
   if (!isClient) return null;
   if (app) return app;
-  const cfg = getFirebaseConfig();
-  app = getApps().length === 0 ? initializeApp(cfg) : getApp();
-  return app;
-};
-
-// --- Helpers for emulator connection ---
-const safeConnect = (fn: () => void, label: string) => {
+  
   try {
-    fn();
+    const config = getFirebaseConfig();
+    app = getApps().length === 0 ? initializeApp(config) : getApp();
+    
+    if (process.env.NODE_ENV === 'development') {
+      console.log('🔥 Firebase initialized:', {
+        projectId: config.projectId,
+        useEmulators,
+        authDomain: config.authDomain,
+      });
+    }
+    
+    return app;
   } catch (error) {
-    console.warn(`Failed to connect ${label} emulator`, error);
+    console.error('Failed to initialize Firebase:', error);
+    return null;
   }
 };
 
-// --- Auth ---
-export const auth = (() => {
-  if (!isClient) return undefined as any;
-  const firebaseApp = getFirebaseApp();
-  if (!firebaseApp) return undefined as any;
+// Safe emulator connection helper
+const safeConnect = (fn: () => void, label: string) => {
+  try {
+    fn();
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`✅ Connected to ${label} emulator`);
+    }
+  } catch (error) {
+    console.warn(`Failed to connect ${label} emulator:`, error);
+  }
+};
 
-  const authInstance = getAuth(firebaseApp);
-  if (effectiveUseEmulators) {
-    safeConnect(
-      () =>
-        connectAuthEmulator(
+// Auth instance
+export const auth = ((): Auth | undefined => {
+  if (!isClient) return undefined;
+  
+  const firebaseApp = getFirebaseApp();
+  if (!firebaseApp) return undefined;
+
+  try {
+    const authInstance = getAuth(firebaseApp);
+    
+    if (useEmulators) {
+      safeConnect(
+        () => connectAuthEmulator(
           authInstance,
           process.env.NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR ?? 'http://127.0.0.1:9099',
           { disableWarnings: true }
         ),
-      'Auth'
-    );
+        'Auth'
+      );
+    }
+    
+    return authInstance;
+  } catch (error) {
+    console.error('Failed to initialize Auth:', error);
+    return undefined;
   }
-  return authInstance;
 })();
 
-// --- Firestore ---
-export const db = (() => {
-  if (!isClient) return undefined as any;
+// Firestore instance
+export const db = ((): Firestore | undefined => {
+  if (!isClient) return undefined;
+  
   const firebaseApp = getFirebaseApp();
-  if (!firebaseApp) return undefined as any;
+  if (!firebaseApp) return undefined;
 
-  const firestore = getFirestore(firebaseApp);
-  if (effectiveUseEmulators) {
-    safeConnect(
-      () => {
-        const host = process.env.NEXT_PUBLIC_FIREBASE_FIRESTORE_EMULATOR ?? 'localhost';
-        const port = Number(process.env.NEXT_PUBLIC_FIREBASE_FIRESTORE_EMULATOR_PORT ?? 8080);
-        connectFirestoreEmulator(firestore, host, port);
-      },
-      'Firestore'
-    );
+  try {
+    const firestore = getFirestore(firebaseApp);
+    
+    if (useEmulators) {
+      safeConnect(
+        () => {
+          const host = process.env.NEXT_PUBLIC_FIREBASE_FIRESTORE_EMULATOR ?? 'localhost';
+          const port = Number(process.env.NEXT_PUBLIC_FIREBASE_FIRESTORE_EMULATOR_PORT ?? 8080);
+          connectFirestoreEmulator(firestore, host, port);
+        },
+        'Firestore'
+      );
+    }
+    
+    return firestore;
+  } catch (error) {
+    console.error('Failed to initialize Firestore:', error);
+    return undefined;
   }
-  return firestore;
 })();
 
-// --- Functions ---
-export const functions = (() => {
-  if (!isClient) return undefined as any;
+// Functions instance
+export const functions = ((): Functions | undefined => {
+  if (!isClient) return undefined;
+  
   const firebaseApp = getFirebaseApp();
-  if (!firebaseApp) return undefined as any;
+  if (!firebaseApp) return undefined;
 
-  const region = process.env.NEXT_PUBLIC_FIREBASE_FUNCTIONS_REGION ?? 'asia-south1';
-  const functionsInstance = getFunctions(firebaseApp, region);
+  try {
+    const region = process.env.NEXT_PUBLIC_FIREBASE_FUNCTIONS_REGION ?? 'asia-south1';
+    const functionsInstance = getFunctions(firebaseApp, region);
 
-  if (effectiveUseEmulators) {
-    console.log('🔧 Connecting to Functions Emulator...');
-    safeConnect(
-      () => {
-        const host = process.env.NEXT_PUBLIC_FIREBASE_FUNCTIONS_EMULATOR ?? 'localhost';
-        const port = Number(process.env.NEXT_PUBLIC_FIREBASE_FUNCTIONS_EMULATOR_PORT ?? 5001);
-        console.log(`🔧 Functions Emulator: ${host}:${port}`);
-        connectFunctionsEmulator(functionsInstance, host, port);
-      },
-      'Functions'
-    );
-  } else {
-    console.log('🔧 Using production Firebase Functions');
+    if (useEmulators) {
+      safeConnect(
+        () => {
+          const host = process.env.NEXT_PUBLIC_FIREBASE_FUNCTIONS_EMULATOR ?? 'localhost';
+          const port = Number(process.env.NEXT_PUBLIC_FIREBASE_FUNCTIONS_EMULATOR_PORT ?? 5001);
+          connectFunctionsEmulator(functionsInstance, host, port);
+        },
+        'Functions'
+      );
+    }
+    
+    return functionsInstance;
+  } catch (error) {
+    console.error('Failed to initialize Functions:', error);
+    return undefined;
   }
-  return functionsInstance;
 })();
 
-// --- Storage ---
-export const storage = (() => {
-  if (!isClient) return undefined as any;
+// Storage instance
+export const storage = ((): FirebaseStorage | undefined => {
+  if (!isClient) return undefined;
+  
   const firebaseApp = getFirebaseApp();
-  if (!firebaseApp) return undefined as any;
+  if (!firebaseApp) return undefined;
 
-  const storageInstance = getStorage(firebaseApp);
-  if (effectiveUseEmulators) {
-    safeConnect(
-      () => {
-        const host = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_EMULATOR ?? 'localhost';
-        const port = Number(process.env.NEXT_PUBLIC_FIREBASE_STORAGE_EMULATOR_PORT ?? 9199);
-        connectStorageEmulator(storageInstance, host, port);
-      },
-      'Storage'
-    );
+  try {
+    const storageInstance = getStorage(firebaseApp);
+    
+    if (useEmulators) {
+      safeConnect(
+        () => {
+          const host = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_EMULATOR ?? 'localhost';
+          const port = Number(process.env.NEXT_PUBLIC_FIREBASE_STORAGE_EMULATOR_PORT ?? 9199);
+          connectStorageEmulator(storageInstance, host, port);
+        },
+        'Storage'
+      );
+    }
+    
+    return storageInstance;
+  } catch (error) {
+    console.error('Failed to initialize Storage:', error);
+    return undefined;
   }
-  return storageInstance;
 })();
 
-// --- Providers ---
+// Google Auth Provider
 export const googleAuthProvider = (() => {
   if (!isClient) return undefined as any;
-  return new GoogleAuthProvider();
+  
+  try {
+    const provider = new GoogleAuthProvider();
+    provider.addScope('email');
+    provider.addScope('profile');
+    return provider;
+  } catch (error) {
+    console.error('Failed to create Google Auth Provider:', error);
+    return undefined as any;
+  }
 })();
 
-// --- Generic pass-through Firestore converter ---
+// Firestore converters
 const passthroughConverter = {
   toFirestore: (data: any) => data,
   fromFirestore: (snapshot: any) => snapshot.data(),
 };
 
-// Reuse the same converter everywhere
-    export const carbonLogConverter = passthroughConverter;
+export const carbonLogConverter = passthroughConverter;
 export const walletConverter = passthroughConverter;
 export const mentalHealthLogConverter = passthroughConverter;
 export const animalWelfareLogConverter = passthroughConverter;
 export const digitalTwinSimulationConverter = passthroughConverter;
 export const msmeReportConverter = passthroughConverter;
-    export const gameScoreConverter = passthroughConverter;
+export const gameScoreConverter = passthroughConverter;

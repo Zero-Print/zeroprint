@@ -154,7 +154,7 @@ export const TrackerCard: React.FC<TrackerCardProps> = ({
   const safeMetrics = Array.isArray(metrics) ? metrics : [];
 
   return (
-    <ZPCard className={`p-6 relative overflow-hidden ${className}`}>
+    <ZPCard className={`p-6 relative overflow-hidden ${className}`} data-testid="tracker-card">
       {/* Background Gradient */}
       <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${colors.gradient}`} />
 
@@ -171,7 +171,7 @@ export const TrackerCard: React.FC<TrackerCardProps> = ({
         </div>
 
         <div className='flex items-center gap-2'>
-          <span className='text-lg'>{trendInfo.icon}</span>
+          <span className={`text-lg ${trendInfo.color}`} data-testid="trend-icon">{trendInfo.icon}</span>
           <ZPBadge variant='secondary' className={trendInfo.color}>
             {trendInfo.label}
           </ZPBadge>

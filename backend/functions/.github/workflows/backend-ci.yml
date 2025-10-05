@@ -1,0 +1,27 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main, dev ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - name: Install Firebase CLI
+        run: npm i -g firebase-tools
+      - name: Install deps
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Test on emulators
+        run: npx firebase emulators:exec --only functions "npm test"
+
+

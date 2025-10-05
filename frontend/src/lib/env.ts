@@ -12,11 +12,11 @@ export const getApiBaseUrl = (): string => {
 
   // Production URL
   if (process.env.NODE_ENV === 'production') {
-    return 'https://asia-south1-demo-zeroprint.cloudfunctions.net/api';
+    return 'https://us-central1-zeroprint-49afb.cloudfunctions.net/api';
   }
 
   // Development - Firebase Functions emulator
-  return 'http://127.0.0.1:5000/demo-zeroprint/asia-south1/api';
+  return 'http://127.0.0.1:5000/zeroprint-49afb/asia-south1/api';
 };
 
 // Firebase Emulator Configuration

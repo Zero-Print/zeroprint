@@ -5,8 +5,7 @@ import { ZPCard } from '@/components/ZPCard';
 import { ZPButton } from '@/components/ZPButton';
 import { ZPBadge } from '@/components/ZPBadge';
 import { ZPTable } from '@/components/ZPTable';
-import { functions } from '@/lib/firebase';
-import { httpsCallable } from 'firebase/functions';
+import api from '@/lib/apiClient';
 import { useAuth } from '@/modules/auth';
 import {
   BarChart,
@@ -50,8 +49,7 @@ export default function MentalHealthAdminPage() {
     setLoading(true);
     setError(null);
     try {
-      const callable = httpsCallable(functions, 'getSchoolWeeklyMoodAggregateBySection');
-      const resp = (await callable({ schoolId })) as any;
+      const resp = await api.post('/admin/mental-health/school-weekly-mood', { schoolId });
       if (resp?.data?.success) {
         setData(resp.data.data);
         const firstKey = Object.keys(resp.data.data.groups || {})[0] || null;

@@ -43,13 +43,13 @@ export class GameEngineFactory {
     // Type-specific validation
     switch (config.type) {
       case 'quiz':
-        errors.push(...this.validateQuizConfig(config as any));
+        errors.push(...GameEngineFactory.validateQuizConfig(config as any));
         break;
       case 'dragdrop':
-        errors.push(...this.validateDragDropConfig(config as any));
+        errors.push(...GameEngineFactory.validateDragDropConfig(config as any));
         break;
       case 'simulation':
-        errors.push(...this.validateSimulationConfig(config as any));
+        errors.push(...GameEngineFactory.validateSimulationConfig(config as any));
         break;
       default:
         errors.push(`Unsupported game type: ${config.type}`);

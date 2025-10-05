@@ -1,6 +1,6 @@
 import { Inter, Poppins, Roboto_Mono } from 'next/font/google';
 import './globals.css';
-import { AuthProvider } from '@/modules/auth';
+import { AuthProvider } from '@/modules/auth/AuthContext';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { NavigationProvider } from '@/modules/navigation/NavigationContext';
 import { GlobalErrorBoundary } from '@/lib/errorBoundary';

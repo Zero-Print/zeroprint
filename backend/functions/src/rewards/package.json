@@ -1,0 +1,17 @@
+{
+  "name": "zeroprint-rewards",
+  "version": "1.0.0",
+  "description": "Rewards & Marketplace module for ZeroPrint Web",
+  "main": "rewardsFunctions.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "rewards",
+    "marketplace",
+    "zeroprint",
+    "healcoins"
+  ],
+  "author": "ZeroPrint Team",
+  "license": "MIT"
+}

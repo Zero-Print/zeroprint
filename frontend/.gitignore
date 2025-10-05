@@ -32,6 +32,10 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # vercel
 .vercel
@@ -39,3 +43,27 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Compiled JavaScript files (import files)
+*.js
+*.js.map
+!jest.config.js
+!next.config.js
+!postcss.config.mjs
+!eslint.config.mjs
+!middleware.ts
+!tailwind.config.js
+!playwright.config.ts
+!playwright-visual.config.ts
+!jest.setup.js
+!jest.unit.config.js
+
+# TypeScript declaration files (generated)
+*.d.ts
+!types/*.d.ts
+
+# Build outputs
+dist/
+.next/
+out/
+build/

@@ -30,6 +30,7 @@ const config: Config = {
     '<rootDir>/node_modules/',
     '<rootDir>/tests/e2e/',
     '<rootDir>/tests/load/',
+    '<rootDir>/tests/integration/integration.spec.ts', // Playwright test
   ],
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',
@@ -72,8 +73,12 @@ const config: Config = {
   coverageDirectory: '<rootDir>/coverage',
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
+    '^.+\\.mjs$': ['babel-jest', { presets: ['next/babel'] }],
   },
-  transformIgnorePatterns: ['/node_modules/', '^.+\\.module\\.(css|sass|scss)$'],
+  transformIgnorePatterns: [
+    '/node_modules/(?!(msw|@mswjs|until-async|@open-draft|strict-event-emitter|@mswjs|msw)/)',
+    '^.+\\.module\\.(css|sass|scss)$'
+  ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   globals: {
     'ts-jest': {

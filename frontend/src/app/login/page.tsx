@@ -6,7 +6,7 @@ import { ZPButton } from '@/components/ZPButton';
 import { ZPCard } from '@/components/ZPCard';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useAuth } from '@/modules/auth';
+import { useAuth } from '@/hooks/useAuth';
 import Link from 'next/link';
 
 export default function LoginPage() {
@@ -25,8 +25,12 @@ export default function LoginPage() {
     setError('');
 
     try {
-      await signIn(demoEmail, demoPassword);
-      router.push('/dashboard');
+      const result = await signIn({ email: demoEmail, password: demoPassword });
+      if (result.success) {
+        router.push('/dashboard');
+      } else {
+        setError(result.error || 'Login failed');
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed');
     } finally {
@@ -40,17 +44,21 @@ export default function LoginPage() {
     setError('');
 
     try {
-      await signIn(email, password);
-      // Route by role from local auth context if available; fallback to /dashboard
-      const stored = localStorage.getItem('zeroprint_user');
-      const u = stored ? JSON.parse(stored) : null;
-      const role = u?.role;
-      if (role === 'citizen') router.push('/dashboard/citizen');
-      else if (role === 'school') router.push('/dashboard/school');
-      else if (role === 'msme') router.push('/dashboard/msme');
-      else if (role === 'govt' || role === 'government') router.push('/dashboard/govt');
-      else if (role === 'admin') router.push('/admin');
-      else router.push('/dashboard');
+      const result = await signIn({ email, password });
+      if (result.success) {
+        // Route by role from local auth context if available; fallback to /dashboard
+        const stored = localStorage.getItem('zeroprint_user');
+        const u = stored ? JSON.parse(stored) : null;
+        const role = u?.role;
+        if (role === 'citizen') router.push('/dashboard/citizen');
+        else if (role === 'school') router.push('/dashboard/school');
+        else if (role === 'msme') router.push('/dashboard/msme');
+        else if (role === 'govt' || role === 'government') router.push('/dashboard/govt');
+        else if (role === 'admin') router.push('/admin');
+        else router.push('/dashboard');
+      } else {
+        setError(result.error || 'Login failed');
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed');
     } finally {

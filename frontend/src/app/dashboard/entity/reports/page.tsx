@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useAuth } from '@/modules/auth';
+import { useAuth } from '@/hooks/useAuth';
 import { redirect } from 'next/navigation';
 import { ZPCard } from '@/components/ZPCard';
 import { ZPButton } from '@/components/ZPButton';

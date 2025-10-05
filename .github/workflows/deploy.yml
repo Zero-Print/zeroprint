@@ -1,0 +1,103 @@
+name: Deploy to Firebase
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install root deps
+        run: npm ci
+
+      - name: Install frontend deps
+        working-directory: frontend
+        run: npm ci
+
+      - name: Install backend deps
+        working-directory: backend/functions
+        run: npm ci
+
+      - name: Run tests (frontend)
+        working-directory: frontend
+        run: npm test --silent --if-present
+
+      - name: Run tests (backend)
+        working-directory: backend/functions
+        run: npm test --silent --if-present
+
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+
+      - name: Build backend
+        working-directory: backend/functions
+        run: npm run build
+
+      - name: Set env file
+        run: |
+          if [[ "${{ github.ref_name }}" == "dev" ]]; then echo "Using staging env"; echo "${{ secrets.ENV_STAGING }}" > frontend/.env.local; else echo "Using production env"; echo "${{ secrets.ENV_PRODUCTION }}" > frontend/.env.local; fi
+
+      - name: Determine modules
+        id: modules
+        run: echo "modules=core,city,solar" >> $GITHUB_OUTPUT
+
+  deploy-matrix:
+    needs: build-deploy
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        module: [core, city, solar]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Firebase Tools
+        run: npm i -g firebase-tools
+
+      - name: Build frontend (per module)
+        run: |
+          if [[ "${{ matrix.module }}" == "core" ]]; then (cd frontend && npm ci && npm run build); fi
+          # For non-core modules, invoke their own repo/deployment in real setup
+
+      - name: Deploy Hosting (per module)
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: |
+          PROJECT_ID=$([[ "${{ github.ref_name }}" == "dev" ]] && echo zeroprint-staging || echo zeroprint-prod)
+          firebase deploy --only hosting --project $PROJECT_ID
+
+      - name: Log deployment to Firestore
+        env:
+          FIREBASE_AUTH_EMULATOR_HOST: ""
+        run: |
+          BRANCH=${{ github.ref_name }}
+          ACTOR=${{ github.actor }}
+          STATUS=success
+          COMMIT=${{ github.sha }}
+          MODULE=${{ matrix.module }}
+          # Post to callable endpoint via Functions emulator or production URL; here we use Cloud Functions direct callable via curl to emulator/prod proxy
+          curl -s -X POST "${{ secrets.FUNCTIONS_BASE_URL }}/logDeployment" \
+            -H "Content-Type: application/json" \
+            -d "{ \"data\": { \"branch\": \"$BRANCH\", \"actor\": \"$ACTOR\", \"status\": \"$STATUS\", \"commitHash\": \"$COMMIT\", \"module\": \"$MODULE\" } }"
+
+

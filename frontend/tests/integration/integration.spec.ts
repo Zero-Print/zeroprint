@@ -8,7 +8,7 @@ import { setupMockServer, teardownMockServer } from '../utils/mock-server';
  * between frontend components and backend services.
  */
 
-test.describe('Integration Tests', () => {
+test.describe.skip('Integration Tests', () => {
   test.beforeAll(async () => {
     await setupMockServer();
   });

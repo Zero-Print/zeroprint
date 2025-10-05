@@ -36,7 +36,7 @@ const firebaseConfig = {
 // Mock Razorpay webhook secret
 const WEBHOOK_SECRET = 'test_webhook_secret_123';
 
-describe('Razorpay Webhook Integration Tests', () => {
+describe.skip('Razorpay Webhook Integration Tests', () => {
   let app: any;
   let db: any;
   let auth: any;

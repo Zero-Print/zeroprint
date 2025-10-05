@@ -121,7 +121,8 @@ export const TEST_WALLETS = {
   'test-citizen-1': {
     id: 'wallet-citizen-1',
     userId: 'test-citizen-1',
-    balance: 150,
+    healCoins: 150,
+    balance: 150, // Keep for backward compatibility
     totalEarned: 200,
     totalSpent: 50,
     dailyLimit: 100,
@@ -135,7 +136,8 @@ export const TEST_WALLETS = {
   'test-school-1': {
     id: 'wallet-school-1',
     userId: 'test-school-1',
-    balance: 300,
+    healCoins: 300,
+    balance: 300, // Keep for backward compatibility
     totalEarned: 400,
     totalSpent: 100,
     dailyLimit: 200,
@@ -149,7 +151,8 @@ export const TEST_WALLETS = {
   'test-admin-1': {
     id: 'wallet-admin-1',
     userId: 'test-admin-1',
-    balance: 1000,
+    healCoins: 1000,
+    balance: 1000, // Keep for backward compatibility
     totalEarned: 1000,
     totalSpent: 0,
     dailyLimit: 1000,
