@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS variables derived from tokens for theming */
+:root {
+  --background: #ffffff;
+  --foreground: #111827;
+  --card: #ffffff;
+  --card-foreground: #111827;
+  --popover: #ffffff;
+  --popover-foreground: #111827;
+  --primary: #2E7D32; /* primaryGreen */
+  --primary-foreground: #ffffff;
+  --secondary: #FBC02D; /* solarYellow */
+  --secondary-foreground: #111827;
+  --muted: #F5F5F5;
+  --muted-foreground: #6B7280;
+  --accent: #0288D1; /* infoBlue */
+  --accent-foreground: #ffffff;
+  --destructive: #E53935; /* danger */
+  --destructive-foreground: #ffffff;
+  --border: #E5E7EB;
+  --input: #E5E7EB;
+  --ring: #2E7D32;
+}
+
+.dark {
+  --background: #0f172a;
+  --foreground: #e5e7eb;
+  --card: #0b1220;
+  --card-foreground: #e5e7eb;
+  --popover: #0b1220;
+  --popover-foreground: #e5e7eb;
+  --primary: #34d399;
+  --primary-foreground: #052e16;
+  --secondary: #fde68a;
+  --secondary-foreground: #1f2937;
+  --muted: #111827;
+  --muted-foreground: #9ca3af;
+  --accent: #60a5fa;
+  --accent-foreground: #0b1220;
+  --destructive: #ef4444;
+  --destructive-foreground: #0b1220;
+  --border: #1f2937;
+  --input: #1f2937;
+  --ring: #34d399;
+}
+
+/* Base typography */
+@layer base {
+  html, body {
+    @apply text-[16px] leading-normal text-gray-900 bg-[var(--background)] text-[color:var(--foreground)];
+    font-family: Inter, system-ui, sans-serif;
+  }
+
+  h1 { @apply text-2xl font-semibold; }
+  h2 { @apply text-xl font-semibold; }
+  h3 { @apply text-lg font-medium; }
+}

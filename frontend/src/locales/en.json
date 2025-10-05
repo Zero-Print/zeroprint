@@ -1,0 +1,19 @@
+{
+  "common": {
+    "loading": "Loading..."
+  },
+  "rewards": {
+    "marketplaceTitle": "Rewards Marketplace 🎁",
+    "marketplaceSubtitle": "Redeem your HealCoins for exciting rewards",
+    "refresh": "Refresh"
+  },
+  "spotlight": {
+    "title": "Spotlight Stories"
+  },
+  "content": {
+    "libraryTitle": "Learning Library",
+    "aiTip": "AI Tip",
+    "open": "Open"
+  }
+}
+

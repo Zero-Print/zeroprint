@@ -1,0 +1,119 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - main [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e7]:
+        - generic [ref=e8]:
+          - generic [ref=e10]: Z
+          - generic [ref=e11]: ZeroPrint
+        - navigation [ref=e12]:
+          - link "Games" [ref=e13]:
+            - /url: /games
+          - link "Wallet" [ref=e14]:
+            - /url: /wallet
+          - link "Dashboard" [ref=e15]:
+            - /url: /dashboard
+          - link "Leaderboard" [ref=e16]:
+            - /url: /leaderboard
+        - generic [ref=e17]:
+          - link "Login" [ref=e18]:
+            - /url: /auth/login
+            - button "Login" [ref=e19] [cursor=pointer]
+          - link "Sign Up" [ref=e20]:
+            - /url: /auth/signup
+            - button "Sign Up" [ref=e21] [cursor=pointer]
+      - generic [ref=e25]:
+        - heading "Play. Save. Earn. Heal the Planet." [level=1] [ref=e26]:
+          - text: Play. Save. Earn.
+          - generic [ref=e27]: Heal the Planet.
+        - paragraph [ref=e28]: Gamified sustainability for citizens, schools, and MSMEs.
+        - generic [ref=e29]:
+          - link "Get Started" [ref=e30]:
+            - /url: /auth/signup
+            - button "Get Started" [ref=e31] [cursor=pointer]
+          - link "View Leaderboard" [ref=e32]:
+            - /url: /leaderboard
+            - button "View Leaderboard" [ref=e33] [cursor=pointer]
+      - generic [ref=e51]:
+        - generic [ref=e52]:
+          - heading "Transform Your Impact" [level=2] [ref=e53]
+          - paragraph [ref=e54]: Discover sustainable actions that make a difference
+        - generic [ref=e55]:
+          - generic [ref=e56] [cursor=pointer]:
+            - generic [ref=e57] [cursor=pointer]: ☀️
+            - heading "Solar" [level=3] [ref=e58] [cursor=pointer]
+            - paragraph [ref=e59] [cursor=pointer]: Adopt rooftop solar, save energy
+          - generic [ref=e60] [cursor=pointer]:
+            - generic [ref=e61] [cursor=pointer]: ♻️
+            - heading "Waste" [level=3] [ref=e62] [cursor=pointer]
+            - paragraph [ref=e63] [cursor=pointer]: Segregate waste, earn HealCoins
+          - generic [ref=e64] [cursor=pointer]:
+            - generic [ref=e65] [cursor=pointer]: 🚌
+            - heading "Transport" [level=3] [ref=e66] [cursor=pointer]
+            - paragraph [ref=e67] [cursor=pointer]: Shift to EV/public transport
+          - generic [ref=e68] [cursor=pointer]:
+            - generic [ref=e69] [cursor=pointer]: 🍃
+            - heading "Energy" [level=3] [ref=e70] [cursor=pointer]
+            - paragraph [ref=e71] [cursor=pointer]: Reduce energy consumption
+          - generic [ref=e72] [cursor=pointer]:
+            - generic [ref=e73] [cursor=pointer]: 🏗️
+            - heading "Oil & Gas" [level=3] [ref=e74] [cursor=pointer]
+            - paragraph [ref=e75] [cursor=pointer]: Use alternative fuels
+          - generic [ref=e76] [cursor=pointer]:
+            - generic [ref=e77] [cursor=pointer]: 🏠
+            - heading "Housing" [level=3] [ref=e78] [cursor=pointer]
+            - paragraph [ref=e79] [cursor=pointer]: Build sustainable homes
+      - generic [ref=e81]:
+        - heading "Ready to Start Your Sustainability Journey?" [level=2] [ref=e82]
+        - paragraph [ref=e83]: Join thousands of users making a positive impact
+        - link "Join ZeroPrint Today" [ref=e84]:
+          - /url: /auth/signup
+          - button "Join ZeroPrint Today" [ref=e85] [cursor=pointer]
+      - generic [ref=e87]:
+        - generic [ref=e88]:
+          - generic [ref=e89]:
+            - generic [ref=e90]:
+              - generic [ref=e92]: Z
+              - generic [ref=e93]: ZeroPrint
+            - paragraph [ref=e94]: India's first AI-powered sustainability engagement platform
+          - generic [ref=e95]:
+            - heading "Platform" [level=4] [ref=e96]
+            - list [ref=e97]:
+              - listitem [ref=e98]:
+                - link "Games" [ref=e99]:
+                  - /url: /games
+              - listitem [ref=e100]:
+                - link "Dashboard" [ref=e101]:
+                  - /url: /dashboard
+              - listitem [ref=e102]:
+                - link "Leaderboard" [ref=e103]:
+                  - /url: /leaderboard
+              - listitem [ref=e104]:
+                - link "Wallet" [ref=e105]:
+                  - /url: /wallet
+          - generic [ref=e106]:
+            - heading "Company" [level=4] [ref=e107]
+            - list [ref=e108]:
+              - listitem [ref=e109]:
+                - link "About" [ref=e110]:
+                  - /url: /about
+              - listitem [ref=e111]:
+                - link "Privacy Policy" [ref=e112]:
+                  - /url: /privacy
+              - listitem [ref=e113]:
+                - link "Contact" [ref=e114]:
+                  - /url: /contact
+              - listitem [ref=e115]:
+                - link "Careers" [ref=e116]:
+                  - /url: /careers
+          - generic [ref=e117]:
+            - heading "Get in Touch" [level=4] [ref=e118]
+            - paragraph [ref=e119]: hello@zeroprint.in
+            - paragraph [ref=e120]: +91 98765 43210
+        - paragraph [ref=e122]: Powered by ZeroPrint • Built for a sustainable India
+  - alert [ref=e123]
+  - iframe [ref=e124]:
+    
+```

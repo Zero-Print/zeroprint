@@ -1,0 +1,87 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - main [ref=e3]:
+    - generic [ref=e5]:
+      - link "Z ZeroPrint" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e9] [cursor=pointer]: Z
+        - generic [ref=e10] [cursor=pointer]: ZeroPrint
+      - generic [ref=e11]:
+        - heading "Join ZeroPrint" [level=1] [ref=e12]
+        - paragraph [ref=e13]: Create your account to start your sustainability journey
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - generic [ref=e16]:
+            - generic [ref=e17]: Select Your Role
+            - generic [ref=e18]: Choose the account type that best fits your needs
+          - generic [ref=e19]:
+            - generic [ref=e20]:
+              - button "Citizen Individual users tracking personal sustainability metrics" [ref=e21] [cursor=pointer]:
+                - generic [ref=e22] [cursor=pointer]:
+                  - img [ref=e24] [cursor=pointer]
+                  - generic [ref=e27] [cursor=pointer]:
+                    - heading "Citizen" [level=3] [ref=e28] [cursor=pointer]
+                    - paragraph [ref=e29] [cursor=pointer]: Individual users tracking personal sustainability metrics
+              - button "School Educational institutions promoting student engagement" [ref=e30] [cursor=pointer]:
+                - generic [ref=e31] [cursor=pointer]:
+                  - img [ref=e33] [cursor=pointer]
+                  - generic [ref=e40] [cursor=pointer]:
+                    - heading "School" [level=3] [ref=e41] [cursor=pointer]
+                    - paragraph [ref=e42] [cursor=pointer]: Educational institutions promoting student engagement
+              - button "MSME/Business Small and medium enterprises tracking business sustainability" [ref=e43] [cursor=pointer]:
+                - generic [ref=e44] [cursor=pointer]:
+                  - img [ref=e46] [cursor=pointer]
+                  - generic [ref=e54] [cursor=pointer]:
+                    - heading "MSME/Business" [level=3] [ref=e55] [cursor=pointer]
+                    - paragraph [ref=e56] [cursor=pointer]: Small and medium enterprises tracking business sustainability
+              - button "Government Government bodies managing city/ward level sustainability" [ref=e57] [cursor=pointer]:
+                - generic [ref=e58] [cursor=pointer]:
+                  - img [ref=e60] [cursor=pointer]
+                  - generic [ref=e67] [cursor=pointer]:
+                    - heading "Government" [level=3] [ref=e68] [cursor=pointer]
+                    - paragraph [ref=e69] [cursor=pointer]: Government bodies managing city/ward level sustainability
+              - button "Admin System administrators managing the platform" [ref=e70] [cursor=pointer]:
+                - generic [ref=e71] [cursor=pointer]:
+                  - img [ref=e73] [cursor=pointer]
+                  - generic [ref=e75] [cursor=pointer]:
+                    - heading "Admin" [level=3] [ref=e76] [cursor=pointer]
+                    - paragraph [ref=e77] [cursor=pointer]: System administrators managing the platform
+            - generic [ref=e78]:
+              - heading "Selected Role" [level=4] [ref=e79]
+              - generic [ref=e80]:
+                - img [ref=e82]
+                - generic [ref=e85]:
+                  - paragraph [ref=e86]: Citizen
+                  - paragraph [ref=e87]: Individual users tracking personal sustainability metrics
+        - generic [ref=e88]:
+          - generic [ref=e89]:
+            - generic [ref=e90]: Create Account
+            - generic [ref=e91]: Fill in your details to create your Citizen account
+          - generic [ref=e92]:
+            - generic [ref=e93]:
+              - generic [ref=e94]:
+                - generic [ref=e95]: Full Name
+                - textbox "Full Name" [ref=e96]
+              - generic [ref=e97]:
+                - generic [ref=e98]: Email
+                - textbox "Email" [ref=e99]
+              - generic [ref=e100]:
+                - generic [ref=e101]: Password
+                - textbox "Password" [ref=e102]
+              - generic [ref=e103]:
+                - generic [ref=e104]: Confirm Password
+                - textbox "Confirm Password" [ref=e105]
+              - button "Create Citizen Account" [ref=e106] [cursor=pointer]
+            - generic [ref=e107]:
+              - generic [ref=e112]: Or continue with
+              - button "Continue with Google" [ref=e113] [cursor=pointer]:
+                - img
+                - text: Continue with Google
+            - paragraph [ref=e114]:
+              - text: Already have an account?
+              - link "Sign in" [ref=e115] [cursor=pointer]:
+                - /url: /auth/login
+  - alert [ref=e116]
+```

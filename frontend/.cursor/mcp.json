@@ -1,0 +1,9 @@
+{
+  "providers": {
+    "testsprite": {
+      "url": "https://mcp.testsprite.io",
+      "type": "mcp",
+      "api_key_env":"sk-user-o2KRTZ9pQZ0FR8gVbevcXpAilPT-Zi6lToDlzRVtZe6vyq0Lr3lhVdg3SBsIy-YlHPYUjgOBuPrpl7D6mcDYkkonLZWUGVLD2ZiQca_BRFM0ucLl9FUOZiOwxIe17z3cLOQ"
+    }
+  }
+}

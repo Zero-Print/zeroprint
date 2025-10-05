@@ -1,0 +1,51 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - main [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - link "Z ZeroPrint" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e9] [cursor=pointer]: Z
+          - generic [ref=e10] [cursor=pointer]: ZeroPrint
+        - heading "Welcome Back" [level=1] [ref=e11]
+        - paragraph [ref=e12]: Sign in to continue your sustainability journey
+      - generic [ref=e13]:
+        - generic [ref=e14]:
+          - generic [ref=e15]:
+            - generic [ref=e16]: Email Address
+            - textbox "Email Address" [ref=e19]
+          - generic [ref=e20]:
+            - generic [ref=e21]: Password
+            - textbox "Password" [ref=e24]
+          - generic [ref=e25]:
+            - generic [ref=e27]:
+              - checkbox "Remember me" [ref=e29]
+              - generic [ref=e31] [cursor=pointer]: Remember me
+            - link "Forgot password?" [ref=e32] [cursor=pointer]:
+              - /url: /auth/forgot-password
+          - button "Sign In" [ref=e33] [cursor=pointer]
+        - generic [ref=e39]: Or continue with
+        - generic [ref=e40]:
+          - button "Continue with Google" [ref=e41] [cursor=pointer]:
+            - img
+            - text: Continue with Google
+          - button "Continue with GitHub" [ref=e42] [cursor=pointer]:
+            - img
+            - text: Continue with GitHub
+        - paragraph [ref=e44]:
+          - text: Don't have an account?
+          - link "Sign up for free" [ref=e45] [cursor=pointer]:
+            - /url: /auth/signup
+      - paragraph [ref=e47]:
+        - text: By signing in, you agree to our
+        - link "Privacy Policy" [ref=e48] [cursor=pointer]:
+          - /url: /privacy
+        - text: and
+        - link "Terms of Service" [ref=e49] [cursor=pointer]:
+          - /url: /terms
+  - alert [ref=e50]
+  - iframe [ref=e51]:
+    
+```

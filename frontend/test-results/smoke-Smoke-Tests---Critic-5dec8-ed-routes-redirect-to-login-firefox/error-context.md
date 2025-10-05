@@ -1,0 +1,81 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - main [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - link "Back to Trackers" [ref=e7] [cursor=pointer]:
+          - /url: /trackers
+          - img [ref=e8] [cursor=pointer]
+          - text: Back to Trackers
+        - heading "Carbon Footprint Tracker" [level=1] [ref=e11]
+        - paragraph [ref=e12]: Track your transportation choices and monitor your carbon emissions
+      - generic [ref=e13]:
+        - generic [ref=e14]:
+          - generic [ref=e15]:
+            - generic [ref=e16]: Log Your Journey
+            - generic [ref=e17]: Record your transportation details
+          - generic [ref=e19]:
+            - generic [ref=e20]:
+              - generic [ref=e21]: Transportation Mode
+              - generic [ref=e22]:
+                - button "Car 0.21 kg CO₂/km" [ref=e23] [cursor=pointer]:
+                  - img [ref=e25] [cursor=pointer]
+                  - generic [ref=e30] [cursor=pointer]: Car
+                  - generic [ref=e31] [cursor=pointer]: 0.21 kg CO₂/km
+                - button "Bicycle 0 kg CO₂/km" [ref=e32] [cursor=pointer]:
+                  - img [ref=e34] [cursor=pointer]
+                  - generic [ref=e39] [cursor=pointer]: Bicycle
+                  - generic [ref=e40] [cursor=pointer]: 0 kg CO₂/km
+                - button "Train 0.06 kg CO₂/km" [ref=e41] [cursor=pointer]:
+                  - img [ref=e43] [cursor=pointer]
+                  - generic [ref=e51] [cursor=pointer]: Train
+                  - generic [ref=e52] [cursor=pointer]: 0.06 kg CO₂/km
+                - button "Plane 0.25 kg CO₂/km" [ref=e53] [cursor=pointer]:
+                  - img [ref=e55] [cursor=pointer]
+                  - generic [ref=e57] [cursor=pointer]: Plane
+                  - generic [ref=e58] [cursor=pointer]: 0.25 kg CO₂/km
+            - generic [ref=e59]:
+              - generic [ref=e60]: Distance (km)
+              - spinbutton "Distance (km)" [ref=e61]
+            - button "Log Journey" [disabled] [ref=e62]
+        - generic [ref=e63]:
+          - generic [ref=e64]:
+            - generic [ref=e66]: This Week’s Impact
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - generic [ref=e70]: Total Distance
+                - generic [ref=e71]: 45.2 km
+              - generic [ref=e72]:
+                - generic [ref=e73]: CO₂ Emissions
+                - generic [ref=e74]: 8.7 kg
+              - generic [ref=e75]:
+                - generic [ref=e76]: CO₂ Saved
+                - generic [ref=e77]: 12.5 kg
+              - generic [ref=e78]:
+                - generic [ref=e79]: HealCoins Earned
+                - generic [ref=e80]: +23 HC
+          - generic [ref=e81]:
+            - generic [ref=e83]: Recent Journeys
+            - generic [ref=e85]:
+              - generic [ref=e86]:
+                - img [ref=e87]
+                - generic [ref=e92]:
+                  - generic [ref=e93]: Bike to work
+                  - generic [ref=e94]: 5.2 km • 2 hours ago
+                - generic [ref=e95]: +3 HC
+              - generic [ref=e96]:
+                - img [ref=e97]
+                - generic [ref=e105]:
+                  - generic [ref=e106]: Train to city
+                  - generic [ref=e107]: 12.0 km • Yesterday
+                - generic [ref=e108]: +6 HC
+              - generic [ref=e109]:
+                - img [ref=e110]
+                - generic [ref=e115]:
+                  - generic [ref=e116]: Car trip
+                  - generic [ref=e117]: 8.5 km • 2 days ago
+                - generic [ref=e118]: 1.8 kg CO₂
+  - alert [ref=e119]
+```

@@ -1,0 +1,138 @@
+{
+  "tech_stack": [
+    "TypeScript",
+    "Next.js 14",
+    "React 18",
+    "TailwindCSS",
+    "Firebase",
+    "Jest",
+    "Playwright",
+    "shadcn/ui",
+    "Radix UI",
+    "Chart.js",
+    "Recharts",
+    "Axios"
+  ],
+  "features": [
+    {
+      "name": "Authentication System",
+      "description": "Complete authentication system with Firebase Auth, user roles, and profile management",
+      "files": [
+        "src/modules/auth/AuthContext.tsx",
+        "src/modules/auth/AuthContextNew.tsx",
+        "src/modules/auth/components/LoginForm.tsx",
+        "src/modules/auth/components/SignUpForm.tsx",
+        "src/modules/auth/components/ProtectedRoute.tsx",
+        "src/modules/auth/hooks/useAuthGuard.ts",
+        "src/hooks/useAuth.ts"
+      ]
+    },
+    {
+      "name": "Wallet Management",
+      "description": "Digital wallet system for HealCoins with transactions, earning, and redemption",
+      "files": [
+        "src/modules/wallet/hooks/useWallet.ts",
+        "src/modules/wallet/walletService.ts",
+        "src/modules/wallet/walletServiceNew.ts",
+        "src/modules/wallet/components/WalletBalance.tsx",
+        "src/hooks/useWallet.ts"
+      ]
+    },
+    {
+      "name": "Game Engine",
+      "description": "Multiple game engines including puzzle, memory, drag-drop, and quiz games",
+      "files": [
+        "src/lib/gameEngine/BaseGameEngine.ts",
+        "src/lib/gameEngine/PuzzleGameEngine.ts",
+        "src/lib/gameEngine/MemoryGameEngine.ts",
+        "src/lib/gameEngine/DragDropGameEngine.ts",
+        "src/lib/gameEngine/QuizGameEngine.ts",
+        "src/lib/gameEngine/SimulationEngine.ts",
+        "src/hooks/useGame.ts",
+        "src/hooks/useGames.ts"
+      ]
+    },
+    {
+      "name": "API Services",
+      "description": "Centralized API client with authentication, error handling, and service layer",
+      "files": [
+        "src/lib/api.ts",
+        "src/lib/apiClient.ts",
+        "src/lib/services/dashboardClient.ts",
+        "src/lib/services/subscriptionService.ts",
+        "src/lib/services/rewardsClient.ts",
+        "src/lib/services/gamification.ts",
+        "src/lib/services/msme.ts",
+        "src/lib/services/partners.ts"
+      ]
+    },
+    {
+      "name": "Payment System",
+      "description": "Payment processing and subscription management system",
+      "files": [
+        "src/modules/subscriptions/index.ts",
+        "src/modules/subscriptions/types.ts",
+        "src/lib/services/subscriptionService.ts"
+      ]
+    },
+    {
+      "name": "Rewards System",
+      "description": "Rewards and redemption system with marketplace and analytics",
+      "files": [
+        "src/modules/rewards/RewardsDashboard.tsx",
+        "src/modules/rewards/RewardsMarketplace.tsx",
+        "src/modules/rewards/rewardsService.ts",
+        "src/modules/rewards/analyticsService.ts",
+        "src/modules/rewards/securityService.ts",
+        "src/modules/rewards/voucherService.ts",
+        "src/hooks/useRewards.ts"
+      ]
+    },
+    {
+      "name": "Dashboard System",
+      "description": "Role-based dashboards for different user types with analytics",
+      "files": [
+        "src/modules/dashboards/citizen/components/CitizenDashboard.tsx",
+        "src/modules/dashboards/school/index.tsx",
+        "src/lib/dashboardClient.ts",
+        "src/lib/dashboardFetchers.ts",
+        "src/hooks/useDashboards.ts"
+      ]
+    },
+    {
+      "name": "Tracking System",
+      "description": "Carbon footprint and activity tracking with multiple tracker types",
+      "files": [
+        "src/modules/trackers/carbon/components/CarbonLogForm.tsx",
+        "src/modules/trackers/carbon/components/CarbonLogList.tsx",
+        "src/modules/trackers/mentalHealth/components/MoodTracker.tsx",
+        "src/modules/trackers/animalWelfare/components/KindnessTracker.tsx",
+        "src/modules/trackers/hooks/useCarbonLogs.ts",
+        "src/hooks/useTracker.ts",
+        "src/hooks/useTrackers.ts"
+      ]
+    },
+    {
+      "name": "Leaderboard System",
+      "description": "Real-time leaderboards with ranking and caching",
+      "files": [
+        "src/lib/leaderboards/LeaderboardEngine.ts",
+        "src/lib/leaderboards/RankingService.ts",
+        "src/lib/leaderboards/RankingCache.ts",
+        "src/lib/leaderboards/PrecomputeService.ts",
+        "src/hooks/useLeaderboard.ts",
+        "src/hooks/useRealtimeLeaderboard.ts"
+      ]
+    },
+    {
+      "name": "Utility Functions",
+      "description": "Common utility functions for formatting, validation, and helpers",
+      "files": [
+        "src/utils/format.ts",
+        "src/lib/utils.ts",
+        "src/lib/utils/accessibilityChecker.ts",
+        "src/lib/utils/exportUtils.ts"
+      ]
+    }
+  ]
+}
